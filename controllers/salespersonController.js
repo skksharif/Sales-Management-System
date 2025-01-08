@@ -1,4 +1,3 @@
-
 const { loadRecords, saveRecord } = require("../models/recordModel");
 
 // Predefined users with passwords
@@ -22,16 +21,16 @@ exports.addRecordPage = (req, res) => {
 };
 
 exports.addRecord = (req, res) => {
-  const { customerName, phone, amount, salesperson } = req.body;
+  const { phone, amount, shoppingType, salesperson } = req.body;
   console.log(req.body); // Log the incoming data for debugging
 
-  const newRecord = {
-      customerName,                  // Customer Name
-      phone,                         // Phone Number
-      amount,                        // Sale amount
-      date: new Date().toISOString(), // Sale date (today's date)
-      salesperson,                   // Salesperson username (hidden)
-      timestamp: new Date().toISOString(), // Timestamp for record creation
+  const newRecord = {                  // Customer Name
+    phone,                          // Phone Number
+    amount,                         // Sale amount
+    shoppingType,                           // Type of shopping (mens wear, womens wear, both)
+    date: new Date().toISOString(), // Sale date (today's date)
+    salesperson,                    // Salesperson username (hidden)
+    timestamp: new Date().toISOString(), // Timestamp for record creation
   };
 
   saveRecord(newRecord);

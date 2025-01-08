@@ -15,18 +15,18 @@
         <button class="logout-btn" onclick="handleLogout()">Logout</button>
     </div>
     <div class="container">
-     
         <form id="recordForm">
-            <div class="input-box">
-                <input type="text" name="customerName" placeholder="Customer Name" required>
-            </div>
             <div class="input-box">
                 <input type="tel" name="phone" placeholder="Phone Number" required>
             </div>
             <div class="input-box">
                 <input type="number" name="amount" placeholder="Amount" required>
             </div>
-
+            <div class="radio-group">
+                <label><input type="radio" name="shoppingType" value="Mens Wear" required> Men's Wear</label>
+                <label><input type="radio" name="shoppingType" value="Womens Wear"> Women's Wear</label>
+                <label><input type="radio" name="shoppingType" value="Both"> Both</label>
+            </div>
             <input type="hidden" name="salesperson" value="<%= username %>">
             <button type="submit" class="btn">Add Record</button>
         </form>
