@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salesperson Dashboard</title>
+    <link rel="stylesheet" href="/css/salesperson.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Welcome, <%= username %>!</h1>
+        <button class="logout-btn" onclick="handleLogout()">Logout</button>
+    </div>
+    <div class="container">
+     
+        <form id="recordForm">
+            <div class="input-box">
+                <input type="text" name="customerName" placeholder="Customer Name" required>
+            </div>
+            <div class="input-box">
+                <input type="tel" name="phone" placeholder="Phone Number" required>
+            </div>
+            <div class="input-box">
+                <input type="number" name="amount" placeholder="Amount" required>
+            </div>
+
+            <input type="hidden" name="salesperson" value="<%= username %>">
+            <button type="submit" class="btn">Add Record</button>
+        </form>
+    </div>
+
+    <script>
+        const recordForm = document.getElementById('recordForm');
+        recordForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(recordForm);
+            const data = Object.fromEntries(formData.entries());
+            console.log(data);
+
+            // Send POST request to add a record
+            const response = await fetch('/salesperson/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+
+            // Show success popup if the record was added
+            if (result.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: result.message,
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Failed to add record. Please try again.',
+                });
+            }
+        });
+
+        // Logout handler
+        function handleLogout() {
+            window.location.href = '/'; // Redirect to logout route
+        }
+    </script>
+</body>
+
+</html>
